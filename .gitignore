@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data (keep locally; upload to Kaggle/Colab separately if needed)
+# Uncomment if you do not want CSVs in Git:
+# *.csv
+
+# W&B local cache
+wandb/
+
+# Checkpoints and outputs
+checkpoints/
+outputs/
+runs/
+*.pt
+*.pth
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets — NEVER commit these
+.env
+wandb_api_key.txt
+
+
+*.tar.gz
+train.csv
+test.csv
+icml_face_data.csv

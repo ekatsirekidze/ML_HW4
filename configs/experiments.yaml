@@ -1,0 +1,74 @@
+# Facial Expression Recognition — Kaggle ICML 2013
+# Hyperparameter grids per architecture (edit before each sweep)
+
+common:
+  img_size: 48
+  num_classes: 7
+  val_ratio: 0.2
+  seed: 42
+  num_workers: 2
+
+# Architecture 1 — intentionally underfitting (too little capacity)
+arch_v1_mlp_underfit:
+  model_name: mlp_underfit
+  hidden_dims: [128]
+  dropout: 0.0
+  learning_rate: [0.001, 0.0005]
+  batch_size: [64, 128]
+  weight_decay: [0.0]
+  epochs: 25
+  use_augmentation: false
+  expected_behavior: underfit
+
+# Architecture 2 — small CNN baseline
+arch_v2_cnn_small:
+  model_name: cnn_small
+  channels: [16, 32]
+  fc_dim: 128
+  dropout: [0.25, 0.5]
+  learning_rate: [0.001, 0.0003]
+  batch_size: [64]
+  weight_decay: [0.0001, 0.001]
+  epochs: 35
+  use_augmentation: true
+  expected_behavior: moderate
+
+# Architecture 3 — medium CNN (main workhorse)
+arch_v3_cnn_medium:
+  model_name: cnn_medium
+  channels: [32, 64, 128]
+  fc_dim: 256
+  dropout: [0.3, 0.5]
+  learning_rate: [0.001, 0.0005, 0.0001]
+  batch_size: [64, 32]
+  weight_decay: [0.0001, 0.001]
+  epochs: 40
+  use_augmentation: true
+  expected_behavior: good_generalization
+
+# Architecture 4 — deep CNN without enough regularization (overfit demo)
+arch_v4_cnn_deep_overfit:
+  model_name: cnn_deep_overfit
+  channels: [64, 128, 256, 512]
+  fc_dim: 512
+  dropout: [0.1, 0.2]
+  learning_rate: [0.001]
+  batch_size: [32]
+  weight_decay: [0.0]
+  epochs: 50
+  use_augmentation: false
+  expected_behavior: overfit
+
+# Architecture 5 — best model (BN + augmentation + regularization)
+arch_v5_cnn_best:
+  model_name: cnn_best
+  channels: [32, 64, 128, 256]
+  fc_dim: 512
+  dropout: [0.4, 0.5]
+  learning_rate: [0.0005, 0.0001]
+  batch_size: [64]
+  weight_decay: [0.0005, 0.001]
+  epochs: 45
+  use_augmentation: true
+  label_smoothing: [0.05, 0.1]
+  expected_behavior: best
