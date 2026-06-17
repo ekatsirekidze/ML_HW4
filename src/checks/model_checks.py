@@ -31,8 +31,7 @@ def forward_check(
         "output_shape_ok": tuple(logits.shape) == (sample_input.size(0), num_classes),
         "no_nan": not torch.isnan(logits).any().item(),
         "no_inf": not torch.isinf(logits).any().item(),
-        "prob_sum_close_to_1": torch.allclose(probs.sum(dim=1), torch.ones(sample_input.size(0)), atol=1e-4),
-        "logits_min": float(logits.min().item()),
+        "prob_sum_close_to_1": torch.allclose(probs.sum(dim=1), torch.ones(sample_input.size(0), device=probs.device), atol=1e-4),        "logits_min": float(logits.min().item()),
         "logits_max": float(logits.max().item()),
         "logits_mean": float(logits.mean().item()),
     }
